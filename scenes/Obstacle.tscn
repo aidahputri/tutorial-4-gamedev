@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://br6lufrucc4pc"]
+
+[ext_resource type="Texture2D" uid="uid://d1rbkwjwmew4y" path="res://assets/Pixel Adventure 1/Free/Items/Fruits/Bananas.png" id="1_ra4m1"]
+[ext_resource type="Script" path="res://scenes/Obstacle.gd" id="1_xgum5"]
+[ext_resource type="Script" path="res://scenes/Banana.gd" id="3_3wg2j"]
+
+[sub_resource type="Animation" id="Animation_7cfc8"]
+resource_name = "banana"
+length = 1.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Banana:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16]
+}
+
+[sub_resource type="Animation" id="Animation_dkdp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Banana:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ud2xo"]
+_data = {
+"RESET": SubResource("Animation_dkdp2"),
+"banana": SubResource("Animation_7cfc8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dler1"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1g1l"]
+size = Vector2(16, 14)
+
+[node name="Obstacle" type="RigidBody2D"]
+script = ExtResource("1_xgum5")
+
+[node name="Banana" type="Sprite2D" parent="."]
+texture = ExtResource("1_ra4m1")
+hframes = 17
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ud2xo")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_dler1")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_3wg2j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_k1g1l")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Lose_body_entered"]
