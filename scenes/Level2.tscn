@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cqtw5o72kauuo"]
+[gd_scene load_steps=18 format=4 uid="uid://cqtw5o72kauuo"]
 
 [ext_resource type="PackedScene" uid="uid://dyl1lkn4qie8l" path="res://scenes/PinkPlayer.tscn" id="1_ppqqo"]
 [ext_resource type="Script" path="res://scenes/Level2.gd" id="1_wrs2e"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c77q7xa825ok" path="res://assets/kenney_platformerpack/PNG/Backgrounds/blue_shroom.png" id="5_y3ypb"]
 [ext_resource type="Script" path="res://scenes/AreaTrigger.gd" id="6_qbf1l"]
 [ext_resource type="Texture2D" uid="uid://2fsokh1rx07r" path="res://assets/Pixel Adventure 1/Free/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png" id="7_tg0eh"]
+[ext_resource type="Script" path="res://scenes/Spawner.gd" id="9_om0mb"]
+[ext_resource type="PackedScene" uid="uid://br6lufrucc4pc" path="res://scenes/Obstacle.tscn" id="10_kiunl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f76wo"]
 texture = ExtResource("2_7h07t")
@@ -310,6 +312,21 @@ size = Vector2(812.667, 84)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1ijy"]
 size = Vector2(33.3333, 48)
 
+[sub_resource type="Animation" id="Animation_gppc5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_u1crw"]
 resource_name = "flag"
 loop_mode = 1
@@ -324,21 +341,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9, 9, 9, 9, 9, 9]
-}
-
-[sub_resource type="Animation" id="Animation_gppc5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_biljf"]
@@ -370,10 +372,10 @@ shape = SubResource("RectangleShape2D_xtaw0")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -1
-offset_left = -48.0
-offset_top = -49.0
-offset_right = 1011.0
-offset_bottom = 553.0
+offset_left = -96.0
+offset_top = -148.0
+offset_right = 1433.0
+offset_bottom = 601.0
 texture = ExtResource("5_y3ypb")
 expand_mode = 3
 
@@ -410,6 +412,12 @@ hframes = 10
 libraries = {
 "": SubResource("AnimationLibrary_biljf")
 }
+
+[node name="Spawner" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(187.333, -274)
+script = ExtResource("9_om0mb")
+obstacle = ExtResource("10_kiunl")
 
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_Death_Area_body_entered"]
 [connection signal="body_entered" from="AreaTrigger2" to="." method="_on_AreaTrigger2_body_entered"]
