@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfrv7pqh6lxnr"]
+
+[ext_resource type="Script" path="res://scenes/LifeCounter.gd" id="1_vnpqk"]
+
+[node name="GUI" type="MarginContainer"]
+offset_right = 1160.0
+offset_bottom = 41.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+script = ExtResource("1_vnpqk")

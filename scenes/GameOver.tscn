@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dubin2w57i0ax"]
+
+[ext_resource type="FontFile" uid="uid://dabf25akihio2" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/ModernDOS8x16.ttf" id="1_me10b"]
+[ext_resource type="Script" path="res://scenes/GameOver.gd" id="1_upadx"]
+
+[node name="GameOver" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.536291, 0.133331, 0.0655763, 1)
+script = ExtResource("1_upadx")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 214.0
+offset_right = 850.0
+offset_bottom = 423.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_me10b")
+theme_override_font_sizes/font_size = 80
+text = "game over"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LinkButton" type="LinkButton" parent="."]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 366.0
+offset_right = 683.0
+offset_bottom = 411.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Return to Main Menu"
+underline = 1
+
+[connection signal="pressed" from="LinkButton" to="." method="_on_link_button_pressed"]

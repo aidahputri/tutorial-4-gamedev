@@ -1,9 +1,18 @@
 extends Area2D
 
-func _on_Death_Area_body_entered(body: Node2D):
-	if body.name == "PinkPlayer":
-		print("Reset level...")
-		call_deferred("reset_level")
+@export var sceneName: String = ""
 
-func reset_level():
-	get_tree().reload_current_scene()
+func _ready():
+	sceneName = get_tree().get_current_scene().get_name()
+
+func _on_Death_Area_body_entered(body: Node2D):
+	if body.get_name() == "PinkPlayer":
+		global.lives -=1
+		if (global.lives == 0):
+			call_deferred("lose_screen")
+		else:
+			get_tree().call_deferred("change_scene_to_file",(str("res://scenes/" + sceneName + ".tscn")))
+	
+func lose_screen():
+	get_tree().change_scene_to_file("res://scenes/GameOver.tscn")
+	global.lives = 3

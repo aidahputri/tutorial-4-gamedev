@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://dei4sccs8663f"]
+
+[ext_resource type="Script" path="res://scenes/ChooseLevel.gd" id="1_620qw"]
+[ext_resource type="FontFile" uid="uid://dabf25akihio2" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/ModernDOS8x16.ttf" id="2_ruf2d"]
+
+[node name="ChooseLevel" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.772549, 0.498039, 0.67451, 1)
+script = ExtResource("1_620qw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 313.0
+offset_top = 157.0
+offset_right = 853.0
+offset_bottom = 366.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ruf2d")
+theme_override_font_sizes/font_size = 80
+text = "select stage"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Level1" type="LinkButton" parent="."]
+z_index = 2
+offset_left = 522.0
+offset_top = 375.0
+offset_right = 629.0
+offset_bottom = 420.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+action_mode = 0
+text = "Level 1"
+underline = 1
+
+[node name="Level2" type="LinkButton" parent="."]
+z_index = 2
+offset_left = 522.0
+offset_top = 430.0
+offset_right = 629.0
+offset_bottom = 475.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+action_mode = 0
+text = "Level 2"
+underline = 1
+
+[connection signal="pressed" from="Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="Level2" to="." method="_on_level_2_pressed"]

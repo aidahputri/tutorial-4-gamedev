@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://yqmk0vpvnyxr"]
+[gd_scene load_steps=22 format=4 uid="uid://yqmk0vpvnyxr"]
 
+[ext_resource type="Script" path="res://scenes/Level1.gd" id="1_j388s"]
 [ext_resource type="PackedScene" uid="uid://dyl1lkn4qie8l" path="res://scenes/PinkPlayer.tscn" id="2_n6w3f"]
 [ext_resource type="Texture2D" uid="uid://te72w2hkhv0x" path="res://assets/Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="3_3kvhu"]
 [ext_resource type="Script" path="res://scenes/PinkPlayer.gd" id="3_w3mp8"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes/DeathArea.gd" id="7_ot0w2"]
 [ext_resource type="Script" path="res://scenes/Spawner.gd" id="8_7g8kr"]
 [ext_resource type="PackedScene" uid="uid://br6lufrucc4pc" path="res://scenes/Obstacle.tscn" id="8_h6nmv"]
+[ext_resource type="PackedScene" uid="uid://bfrv7pqh6lxnr" path="res://scenes/LifeCounter.tscn" id="10_j16n6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_shurn"]
 texture = ExtResource("3_3kvhu")
@@ -348,9 +350,46 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_25p2i"]
 size = Vector2(653.333, 84)
 
+[sub_resource type="Animation" id="Animation_pjb26"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.4, 0.6, 0.8, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.780392), Color(1, 1, 1, 0.647059), Color(1, 1, 1, 0.427451), Color(1, 1, 1, 0.286275), Color(1, 1, 1, 0.113725)]
+}
+
+[sub_resource type="Animation" id="Animation_ftacl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_adx4o"]
+_data = {
+"RESET": SubResource("Animation_ftacl"),
+"fade_out": SubResource("Animation_pjb26")
+}
+
 [node name="Level1" type="Node2D"]
 position = Vector2(59, 323)
 scale = Vector2(1.5, 1.5)
+script = ExtResource("1_j388s")
 
 [node name="PinkPlayer" parent="." instance=ExtResource("2_n6w3f")]
 script = ExtResource("3_w3mp8")
@@ -399,5 +438,14 @@ position = Vector2(187.333, -274)
 script = ExtResource("8_7g8kr")
 obstacle = ExtResource("8_h6nmv")
 
-[connection signal="body_entered" from="AreaTrigger" to="AreaTrigger" method="_on_Area_Trigger_body_entered"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource("10_j16n6")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_adx4o")
+}
+
+[connection signal="body_entered" from="AreaTrigger" to="." method="_on_area_trigger_body_entered"]
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_Death_Area_body_entered"]
