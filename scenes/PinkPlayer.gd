@@ -13,6 +13,7 @@ var was_in_air = false
 @onready var fall_sprite = $Fall
 @onready var double_jump_sprite = $DoubleJump
 @onready var hit_sprite = $Hit
+@onready var particle = $GPUParticles2D
 @onready var _animation_player = $AnimationPlayer
 
 func _physics_process(delta):
@@ -26,6 +27,7 @@ func _physics_process(delta):
 		if is_on_floor():
 			set_sprite_visibility("walk")
 			_animation_player.play("walk")
+			particle.set_emitting(true)
 
 	elif Input.is_action_pressed("right"):
 		velocity.x = speed
@@ -33,24 +35,28 @@ func _physics_process(delta):
 		if is_on_floor():
 			set_sprite_visibility("walk")
 			_animation_player.play("walk")
+			particle.set_emitting(true)
 
 	else:
 		velocity.x = 0
 		if is_on_floor() and not was_in_air:
 			set_sprite_visibility("idle")
 			_animation_player.play("idle")
+			particle.set_emitting(false)
 
 	if is_on_floor():
 		was_in_air = false
 		can_double_jump = true
 
 		if Input.is_action_just_pressed('up'):
+			particle.set_emitting(false)
 			velocity.y = jump_speed
 			set_sprite_visibility("jump")
 			_animation_player.play("jump")
 			was_in_air = true
 
 	else:
+		particle.set_emitting(false)
 		if velocity.y < 0:
 			set_sprite_visibility("jump")
 			_animation_player.play("jump")

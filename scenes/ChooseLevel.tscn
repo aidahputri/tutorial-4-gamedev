@@ -13,6 +13,7 @@ color = Color(0.772549, 0.498039, 0.67451, 1)
 script = ExtResource("1_620qw")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 313.0
 offset_top = 157.0
 offset_right = 853.0
@@ -27,6 +28,7 @@ uppercase = true
 
 [node name="Level1" type="LinkButton" parent="."]
 z_index = 2
+layout_mode = 0
 offset_left = 522.0
 offset_top = 375.0
 offset_right = 629.0
@@ -40,6 +42,7 @@ underline = 1
 
 [node name="Level2" type="LinkButton" parent="."]
 z_index = 2
+layout_mode = 0
 offset_left = 522.0
 offset_top = 430.0
 offset_right = 629.0

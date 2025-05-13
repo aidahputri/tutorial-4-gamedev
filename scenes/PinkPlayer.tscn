@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dyl1lkn4qie8l"]
+[gd_scene load_steps=18 format=3 uid="uid://dyl1lkn4qie8l"]
 
 [ext_resource type="Texture2D" uid="uid://bqc7sejeppi0t" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/Run (32x32).png" id="1_pwrmn"]
 [ext_resource type="Texture2D" uid="uid://ddci3w86k30fu" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/Idle (32x32).png" id="1_wkarl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://3jiu20oas4bw" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/Fall (32x32).png" id="4_cf12w"]
 [ext_resource type="Texture2D" uid="uid://hjmvcc6yfm4n" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/Double Jump (32x32).png" id="5_qbl3h"]
 [ext_resource type="Texture2D" uid="uid://cj7d23lfxclpc" path="res://assets/Pixel Adventure 1/Free/Main Characters/Pink Man/Hit (32x32).png" id="6_tchqm"]
+[ext_resource type="Texture2D" uid="uid://b4haopckyelbp" path="res://assets/Pixel Adventure 1/Free/Traps/Sand Mud Ice/Sand Particle.png" id="7_rj27l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgoa2"]
 size = Vector2(20, 23)
@@ -200,6 +201,18 @@ _data = {
 "walk": SubResource("Animation_afxav")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ehu6k"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(30, 1, 1)
+angle_min = -20.3
+angle_max = 669.3
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -200, 0)
+color = Color(1, 0.129412, 1, 1)
+
 [node name="PinkPlayer" type="CharacterBody2D"]
 
 [node name="Idle" type="Sprite2D" parent="."]
@@ -235,3 +248,11 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(340, -2)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-19, 13)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_ehu6k")
+texture = ExtResource("7_rj27l")
+lifetime = 0.5
+draw_order = 0
